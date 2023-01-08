@@ -1,13 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+a,
+img,
+button,
+input,
+label,
+select,
+span,
+i {
+    display: inline-block;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+ul {
+    list-style: none;
+}
+img {
+    width: 100%;
+}
+html {
+    font-size: 62.5%;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    font-family: system-ui;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+form {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+form fieldset {
+    padding: 2rem;
+    font-size: 2rem;
+}
+form fieldset label {
+    margin-right: 1rem;
+}
+
+button {
+    text-decoration: none;
+    border: none;
+    border-radius: 0.2rem;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.6rem 1.5rem;
+    transition: 0.25s;
+    margin-top: 2rem;
+}
+button:is(:hover, :focus, :focus-within) {
+    background-color: #fff;
+    color: #000;
 }
