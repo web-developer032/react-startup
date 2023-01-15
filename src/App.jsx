@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/navbar/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import About from "./pages/about/About";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";

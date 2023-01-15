@@ -7,13 +7,9 @@ export default function Home() {
 
     // Load the data from the server
     useEffect(() => {
-        let mounted = true;
-
         const getUsers = async () => {
             const response = await axios.get("https://jsonplaceholder.typicode.com/users");
-            if (mounted) {
-                setUsers(response.data);
-            }
+            setUsers(response.data);
         };
         getUsers();
     }, []);

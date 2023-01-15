@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 function Signup() {
-    useEffect(() => {
-        console.log("SIGNUP");
-    }, []);
     return (
         <form>
             <fieldset>
