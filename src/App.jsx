@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import { useUserState } from "./contextApi/contextApi";
+
 import Navbar from "./components/navbar/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+
 import About from "./pages/about/About";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Contact from "./pages/contact/Contact";
 import Home from "./pages/home/Home";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Profile from "./pages/profile/Profile";
 import NotFound from "./pages/notFound/NotFound";
-import { setUser } from "./redux/slices/authSlice";
 
 function App() {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
+    const [userState, userDispatch] = useUserState();
 
     useEffect(() => {
         // FETCH USER DATA USING TOKEN
-        dispatch(setUser(false));
+        console.log("APP STATE: ", userState);
 
         return () => {};
     }, []);

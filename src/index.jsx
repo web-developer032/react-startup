@@ -1,19 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
 
 import App from "./App";
-
 import "./index.css";
 
+import { UserStateProvider } from "./contextApi/contextApi";
+
+// --------------------
+// USING CONTEXT API
+// --------------------
 ReactDOM.createRoot(document.getElementById("root")).render(
     // <React.StrictMode>
-    <Provider store={store}>
+    <UserStateProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </Provider>
+    </UserStateProvider>
     // </React.StrictMode>
 );

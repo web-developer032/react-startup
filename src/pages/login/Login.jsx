@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../redux/slices/authSlice";
+import { useUserState, userActions } from "../../contextApi/contextApi";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
+    const [userState, userDispatch] = useUserState();
+    const navigate = useNavigate();
 
-    console.log("LOGIN AUTH:", auth);
-    useEffect(() => {
-        console.log("LOGIN");
-    }, []);
     return (
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                dispatch(setUser(true));
+                userDispatch(userActions.SET_USER, true);
+                navigate("/");
+                console.log("SUBMIT");
             }}
         >
             <fieldset>

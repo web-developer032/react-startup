@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
-import { setUser } from "../../redux/slices/authSlice";
 import "./navbar.css";
+import { useUserState, userActions } from "../../contextApi/contextApi";
 
 function Navbar() {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
+    const [userState, userDispatch] = useUserState();
 
-    console.log("NAVBAR AUTH:", auth);
-    useEffect(() => {
-        console.log("NAVBAR");
-    }, []);
+    console.log("NAVBAR STATE:", userState);
 
     return (
         <nav>
@@ -25,7 +20,7 @@ function Navbar() {
                 <li>
                     <Link to="/">Home</Link>
                 </li>
-                {!auth.user && (
+                {!userState.user && (
                     <>
                         <li>
                             <Link to="/login">Login</Link>
@@ -35,9 +30,9 @@ function Navbar() {
                         </li>
                     </>
                 )}
-                {auth.user && (
+                {userState.user && (
                     <li>
-                        <Link to="/logout" onClick={() => dispatch(setUser(false))}>
+                        <Link to="/logout" onClick={() => userDispatch(userActions.DELETE_USER)}>
                             Logout
                         </Link>
                     </li>

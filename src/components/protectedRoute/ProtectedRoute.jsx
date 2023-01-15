@@ -1,17 +1,10 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
 import UnAuthorized from "../../pages/unAuthorized/UnAuthorized";
+import { useUserState } from "../../contextApi/contextApi";
 
 const ProtectedRoute = ({ children }) => {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
+    const [userState, userDispatch] = useUserState();
 
-    useEffect(() => {
-        console.log("PROTECTED ");
-    }, []);
-
-    if (!auth.user) {
+    if (!userState.user) {
         return <UnAuthorized to="/" replace />;
         // return <Navigate to="/" replace />;
     }
