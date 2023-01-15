@@ -26,7 +26,7 @@ export default function Home() {
                 {users.map((user) => {
                     return (
                         <li key={user.id}>
-                            {user.name} @({user.username})
+                            {user.name} ({formatUserName(user.username)})
                         </li>
                     );
                 })}
