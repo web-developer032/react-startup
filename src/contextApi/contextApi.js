@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 
-const actions = {
+const userActions = {
     SET_USER: "SET_USER",
-    GET_USER: "GET_USER",
     DELETE_USER: "DELETE_USER",
 };
 
@@ -12,16 +11,13 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case actions.SET_USER:
+        case userActions.SET_USER:
             return {
                 ...state,
                 user: action.payload,
             };
 
-        case actions.GET_USER:
-            return state;
-
-        case actions.DELETE_USER:
+        case userActions.DELETE_USER:
             return {
                 ...state,
                 user: false,
@@ -48,4 +44,4 @@ function UserStateProvider({ children }) {
     );
 }
 
-export { useUserState, UserStateProvider };
+export { userActions, useUserState, UserStateProvider };
