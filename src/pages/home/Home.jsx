@@ -5,6 +5,7 @@ import { useUserState } from "../../contextApi/contextApi";
 
 export default function Home() {
     const [userState, userDispatch] = useUserState();
+
     const [users, setUsers] = useState([]);
 
     // Load the data from the server

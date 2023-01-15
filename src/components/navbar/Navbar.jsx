@@ -32,7 +32,10 @@ function Navbar() {
                 )}
                 {userState.user && (
                     <li>
-                        <Link to="/logout" onClick={() => userDispatch(userActions.DELETE_USER)}>
+                        <Link
+                            to="/"
+                            onClick={() => userDispatch({ type: userActions.DELETE_USER })}
+                        >
                             Logout
                         </Link>
                     </li>

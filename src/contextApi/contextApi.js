@@ -11,18 +11,20 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case userActions.SET_USER:
+        case userActions.SET_USER: {
             console.log("SET USER RAN");
             return {
                 ...state,
                 user: action.payload,
             };
+        }
 
-        case userActions.DELETE_USER:
+        case userActions.DELETE_USER: {
             return {
                 ...state,
                 user: false,
             };
+        }
 
         default:
             return state;

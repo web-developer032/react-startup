@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useUserState, userActions } from "../../contextApi/contextApi";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [userState, userDispatch] = useUserState();
+
     const navigate = useNavigate();
 
     return (
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                userDispatch(userActions.SET_USER, true);
+                userDispatch({ type: userActions.SET_USER, payload: true });
                 navigate("/");
                 console.log("SUBMIT");
             }}
