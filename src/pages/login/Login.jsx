@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -12,6 +11,7 @@ function Login() {
         <form
             onSubmit={(e) => {
                 e.preventDefault();
+                localStorage.setItem("user", true);
                 dispatch(setUser(true));
                 navigate("/");
             }}

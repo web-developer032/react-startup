@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
@@ -16,31 +16,44 @@ function App() {
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         // FETCH USER DATA USING TOKEN
-        dispatch(setUser(false));
+        dispatch(setUser(!!localStorage.getItem("user")));
 
-        return () => {};
+        setLoading(false);
     }, []);
 
-    return (
-        <>
-            <Navbar />
+    console.log("APP STATE: ", auth);
 
+    return loading ? (
+        <h1>Loading...</h1>
+    ) : (
+        <>
             <Routes>
-                <Route index element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="login" element={<Login />} />
-                <Route path="signup" element={<Signup />} />
                 <Route
-                    path="profile"
+                    path="login"
                     element={
-                        <ProtectedRoute>
-                            <Profile />
+                        <ProtectedRoute isAllowed={!auth.user} redirectedUrl={"/"}>
+                            <Login />
                         </ProtectedRoute>
                     }
                 />
+                <Route path="signup" element={<Signup />} />
+
+                <Route
+                    path="/"
+                    element={
+                        <ProtectedRoute isAllowed={auth.user} redirectedUrl={"/login"}>
+                            <Home />
+                        </ProtectedRoute>
+                    }
+                >
+                    <Route path="about" element={<About />} />
+                    <Route path="contact" element={<Contact />} />
+                    <Route path="profile" element={<Profile />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>

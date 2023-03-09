@@ -1,14 +1,11 @@
-import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import UnAuthorized from "../../pages/unAuthorized/UnAuthorized";
 
-const ProtectedRoute = ({ children }) => {
-    const auth = useSelector((state) => state.auth);
-
-    if (!auth.user) {
-        return <UnAuthorized to="/" replace />;
-        // return <Navigate to="/" replace />;
+const ProtectedRoute = ({ isAllowed, children, redirectedUrl = "login" }) => {
+    if (isAllowed) {
+        return children;
     }
-
-    return children;
+    return <Navigate to={redirectedUrl} replace />;
+    // return <UnAuthorized to={redirectedUrl} replace />;
 };
 export default ProtectedRoute;
