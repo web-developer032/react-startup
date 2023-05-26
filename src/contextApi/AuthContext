@@ -1,0 +1,124 @@
+import React, { createContext, useContext, useReducer } from "react";
+import { clearLocalStorage, getUserToken, setUserToken } from "../services/authServices";
+
+const authActions = {
+    SET_TOKEN: "SET_TOKEN",
+    SET_USER: "SET_USER",
+    SET_USER_PLAN: "SET_USER_PLAN",
+    DELETE_USER: "DELETE_USER",
+};
+
+const initialState = {
+    token: getUserToken(),
+
+    user: {
+        company_name: null,
+        email: null,
+        first_name: null,
+        last_name: null,
+        format_docs: 0,
+        phone: null,
+        user_id: "",
+    },
+
+    userPlan: {
+        plan_id: null,
+        plan: "starter",
+    },
+};
+
+const reducer = (state, { type, payload }) => {
+    switch (type) {
+        case authActions.SET_TOKEN: {
+            setUserToken(payload);
+
+            return {
+                ...state,
+                token: payload,
+            };
+        }
+
+        case authActions.SET_USER: {
+            return {
+                ...state,
+                user: { ...payload, user_id: payload.id || payload.user_id },
+            };
+        }
+
+        case authActions.SET_USER_PLAN: {
+            return {
+                ...state,
+                userPlan: { ...payload },
+            };
+        }
+
+        case authActions.DELETE_USER: {
+            clearLocalStorage();
+
+            return {
+                token: "",
+
+                user: {
+                    company_name: null,
+                    email: null,
+                    first_name: null,
+                    last_name: null,
+                    format_docs: 0,
+                    phone: null,
+                    user_id: null,
+                },
+
+                userPlan: {
+                    plan_id: null,
+                    plan: "starter",
+                },
+            };
+        }
+
+        default:
+            return state;
+    }
+};
+
+export const AuthContext = createContext({
+    authState: initialState,
+    authDispatch: () => {},
+    updateToken: () => {},
+    updateUser: () => {},
+    updatePlan: () => {},
+    deleteUser: () => {},
+});
+
+export function AuthStateProvider({ children }) {
+    const [authState, authDispatch] = useReducer(reducer, initialState);
+
+    function updateToken(payload = "") {
+        authDispatch({ type: authActions.SET_TOKEN, payload });
+    }
+
+    function updateUser(payload = {}) {
+        authDispatch({ type: authActions.SET_USER, payload });
+    }
+
+    function updatePlan(payload = {}) {
+        authDispatch({ type: authActions.SET_USER_PLAN, payload });
+    }
+
+    function deleteUser() {
+        authDispatch({ type: authActions.DELETE_USER });
+    }
+
+    return (
+        <AuthContext.Provider
+            value={{ authState, authDispatch, updateToken, updateUser, updatePlan, deleteUser }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
+}
+
+export function useAuthState() {
+    const authContext = useContext(AuthContext);
+
+    return authContext;
+}
